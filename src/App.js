@@ -2,6 +2,7 @@ import './App.css';
 
 import { useDispatch, useSelector } from "react-redux";
 import { addCustomerAction, removeCustomerAction } from './store/customerReducer';
+import { fetchCustomers } from './asyncActions/customers';
 
 function App() {
 	const dispatch = useDispatch()
@@ -37,6 +38,7 @@ function App() {
 			</div>
 			<div style={{display: "flex", justifyContent: "center", marginTop: 30}}>
 				<button onClick={() => addCustomer(prompt())} style={{marginRight: 20}}>(+) Add customer</button>
+				<button onClick={() => dispatch(fetchCustomers())}>Get customers from DB</button>
 			</div>
 			{customers.length > 0 ?
 				<div>
