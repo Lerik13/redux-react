@@ -1,57 +1,33 @@
 import './App.css';
 
 import { useDispatch, useSelector } from "react-redux";
-import { addCustomerAction, removeCustomerAction } from './store/customerReducer';
-import { fetchCustomers } from './asyncActions/customers';
+import { asyncDecrementCreator, asyncIncrementCreator, decrementCreator, incrementCreator } from './store/countReducer';
+import { fetchUsers } from './store/userReducer';
 
 function App() {
+	const count = useSelector(state => state.countReducer.count)
+	const users = useSelector(state => state.userReducer.users)
 	const dispatch = useDispatch()
-	const cash = useSelector(state => state.cash.cash)
-	const customers = useSelector(state => state.customers.customers)
-
-	const addCash = (cash) => {
-		dispatch({type: "ADD_CASH", payload: cash})
-	}
-	const getCash = (cash) => {
-		dispatch({type: "GET_CASH", payload: cash})
-	}
-
-	const addCustomer = (name) => {
-		const customer = {
-			name,
-			id: Date.now()
-		}
-		dispatch(addCustomerAction(customer))
-	}
-	const removeCustomer = (customer) => {
-		dispatch(removeCustomerAction(customer.id))
-	}
 
 	return (
-		<div className={'App'}>
-			<div style={{fontSize: "3rem"}}>
-				{cash}
+		<div className="App">
+			<div className="count">{count}</div>
+			<div className="btns">
+				<button className="btn" onClick={() => dispatch(asyncIncrementCreator())}>(+) INCREMENT++</button>
+				<button className="btn" onClick={() => dispatch(asyncDecrementCreator())}>(-) DECREMENT--</button>
+				<button className="btn" onClick={() => dispatch(fetchUsers())}>Get Users</button>
 			</div>
-			<div style={{display: "flex", justifyContent: "center"}}>
-				<button onClick={() => addCash(Number(prompt()))} style={{marginRight: 20}}>(+) Top up the account</button>
-				<button onClick={() => getCash(Number(prompt()))}>(-) Withdraw from the account</button>
-			</div>
-			<div style={{display: "flex", justifyContent: "center", marginTop: 30}}>
-				<button onClick={() => addCustomer(prompt())} style={{marginRight: 20}}>(+) Add customer</button>
-				<button onClick={() => dispatch(fetchCustomers())}>Get customers from DB</button>
-			</div>
-			{customers.length > 0 ?
-				<div>
-					{customers.map(customer => 
-						<div style={{fontSize: "2rem", border: '1px solid black', padding: "10px", marginTop:  5}}>
-							{customer.name}
-							<span onClick={() => removeCustomer(customer)} style={{cursor: 'pointer'}}> [-]</span>
+			{users.length > 0 ?
+				<div className="users">
+					{users.map(user => 
+						<div className="user">
+							{user.name}
 						</div>
 					)}
 				</div>
 				:
-				<div style={{fontSize: "2rem", marginTop: 20}}>
-					No customers!
+				<div className="no-users">
+					No users!
 				</div>
 			}
 		</div>

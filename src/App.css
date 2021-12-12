@@ -40,7 +40,14 @@
   }
 }
 
-button {
+.count {
+	font-size: 3rem;
+}
+.btns {
+	display: flex;
+	justify-content: center;
+}
+.btn {
 	display: flex;
 	padding: 20px;
 	font-size: 1rem;
@@ -48,4 +55,19 @@ button {
 	border-radius: 10px;
 	border: none;
 	cursor: pointer;
+	margin-right: 10px;
+}
+
+.users{
+	margin-top: 20px;
+}
+.no-users{
+	font-size: 2rem;
+	margin-top: 20px;
+}
+.user{
+	font-size: 2rem;
+	border: 1px solid black;
+	padding: 10px;
+	margin-top:  5px
 }
